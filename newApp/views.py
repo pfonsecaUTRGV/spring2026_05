@@ -4,6 +4,7 @@ from django.contrib import messages
 from .forms import UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 import requests
+from django.http import JsonResponse
 
 
 
@@ -66,4 +67,15 @@ def pokedex_view(request):
 		return render(request,"pokedex.html",{
 			"pokemon_data":pokemon_data,
 			"error": error
-	})		
+	})	
+
+def hello_api(request):
+	data = {
+		"message":"Hello World",
+		"status" : "success",
+		"name"   : "Vaquero",
+		"color"  : "green",
+		"city"   : "Edinburg"
+	}
+
+	return JsonResponse(data)
