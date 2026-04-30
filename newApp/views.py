@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
-from .forms import UserUpdateForm, ProfileUpdateForm
+from .forms import UserUpdateForm, ProfileUpdateForm, TaskForm
 from django.contrib.auth.decorators import login_required
 import requests
 from django.http import JsonResponse
-
+from .models import Task
 
 
 def home(request):
@@ -79,3 +79,16 @@ def hello_api(request):
 	}
 
 	return JsonResponse(data)
+
+
+def task_list(request):
+	if request.method == 'POST':
+		form = TaskForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('tasks')
+		else: 
+			form = TaskForm()
+
+		tasks = Task.objects.all().order_by('-id')
+		return render(request, 'tasks.html',{'form':form, 'tasks': tasks})
