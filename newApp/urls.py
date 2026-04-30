@@ -10,6 +10,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name = 'logout'),
     path('pokedex/', views.pokedex_view, name = 'pokedex'),
     path('api/hello/',views.hello_api, name = 'hello_api'),
-    
+    path('tasks/',views.task_list, name = 'tasks'),
+
 
 ]
