@@ -87,8 +87,8 @@ def task_list(request):
 		if form.is_valid():
 			form.save()
 			return redirect('tasks')
-		else: 
-			form = TaskForm()
+	else: 
+		form = TaskForm()
 
-		tasks = Task.objects.all().order_by('-id')
-		return render(request, 'tasks.html',{'form':form, 'tasks': tasks})
+	tasks = Task.objects.all().order_by('-id')
+	return render(request, 'tasks.html',{'form': form, 'tasks': tasks})
